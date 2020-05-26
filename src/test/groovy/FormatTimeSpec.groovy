@@ -13,7 +13,7 @@ class FormatTimeSpec extends Specification {
         where:
                 timeInSecs  | expectedTime
                 0           |"none"
-         //       2           |"2 seconds"
+                2           |"2 seconds"
     }
 
 
