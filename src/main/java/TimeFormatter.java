@@ -1,5 +1,5 @@
 public class TimeFormatter {
-    public static String getTime(Integer seconds) {
+    public static String convertTime(Integer seconds) {
         return "none";
     }
 

@@ -1,26 +1,22 @@
 import spock.lang.Specification
+import spock.lang.Unroll
 
 
 class FormatTimeSpec extends Specification {
 
-    def "time of zero returns none"() {
+    @Unroll
+    def "time of '#timeInSecs' returns '#expectedTime'"() {
 
-        TimeFormatter timeFormatter = new TimeFormatter();
-        String returnedTime = timeFormatter.getTime(0);
-        expect: returnedTime == "none";
+        given: TimeFormatter timeFormatter = new TimeFormatter();
+        when: String returnedTime = timeFormatter.convertTime(timeInSecs);
+        then: returnedTime == expectedTime;
+        where:
+                timeInSecs  | expectedTime
+                0           |"none"
+         //       2           |"2 seconds"
     }
 
-    /**
-     * test('time of seconds returns seconds only', () => {*   expect(formatTime(2)).toBe('2 seconds');
-     * });
-     */
 
 
-    def "time of seconds returns seconds only"() {
-//TODO
-        TimeFormatter timeFormatter = new TimeFormatter();
-        String returnedTime = timeFormatter.getTime(0);
-        expect: returnedTime == "none";
-    }
 
 }
