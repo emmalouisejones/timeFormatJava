@@ -1,5 +1,6 @@
 import spock.lang.Specification
 import spock.lang.Unroll
+import time.TimeFormatter
 
 
 class FormatTimeSpec extends Specification {
@@ -38,7 +39,6 @@ class FormatTimeSpec extends Specification {
                 62985600    |"1 year and 364 days"
                 62985539    |"1 year, 363 days, 23 hours, 58 minutes and 59 seconds"
                 -1          |"none"
-        //TODO non numeric
     }
 
 

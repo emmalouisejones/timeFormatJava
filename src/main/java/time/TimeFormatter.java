@@ -1,7 +1,10 @@
-import java.util.HashMap;
+package time;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static time.TimeFormatter.UnitOfTime.*;
 
 public class TimeFormatter {
 
@@ -29,14 +32,9 @@ public class TimeFormatter {
             String units = (value > 1) ? unit + "s" : unit;
             String separator = isLastSeparator(size, count.get()) ? ", " : " and ";
             if (hasMoreValues(size, count.getAndIncrement())) {
-                timeText.append(value);
-                timeText.append(" ");
-                timeText.append(units);
-                timeText.append(separator);
+                timeText.append(value).append(" ").append(units).append(separator);
             } else {
-                timeText.append(value);
-                timeText.append(" ");
-                timeText.append(units);
+                timeText.append(value).append(" ").append(units);
             }
         });
         return timeText.toString();
@@ -52,44 +50,44 @@ public class TimeFormatter {
 
     private static Map calculateTimeByUnit(int secs) {
         LinkedHashMap timeByUnit = new LinkedHashMap<String, Integer>();
-        Integer years = getUnitOfTime(secs, UnitOfTime.year.secs);
+        Integer years = getUnitOfTime(secs, year.secs);
         if (years > 0) {
-            timeByUnit.put(UnitOfTime.year.name(),years);
+            timeByUnit.put(year.name(),years);
         }
         Integer days = getRemainingDays(secs);
         if (days > 0) {
-            timeByUnit.put(UnitOfTime.day.name(), days);
+            timeByUnit.put(day.name(), days);
         }
         Integer hours = getRemainingHours(secs);
         if (hours > 0) {
-            timeByUnit.put(UnitOfTime.hour.name(), hours);
+            timeByUnit.put(hour.name(), hours);
         }
         Integer mins = getRemainingMins(secs);
         if (mins > 0) {
-            timeByUnit.put(UnitOfTime.minute.name(), mins);
+            timeByUnit.put(minute.name(), mins);
         }
         Integer seconds = getRemainingSecs(secs);
         if (seconds > 0) {
-            timeByUnit.put(UnitOfTime.second.name(), seconds);
+            timeByUnit.put(second.name(), seconds);
         }
         return timeByUnit;
     }
 
     private static Integer getRemainingDays(int secs) {
-        return getUnitOfTime(secs, UnitOfTime.day.secs) - (365 * getUnitOfTime(secs, UnitOfTime.year.secs));
+        return getUnitOfTime(secs, day.secs) - (365 * getUnitOfTime(secs, year.secs));
     }
 
 
     private static Integer getRemainingSecs(int secs) {
-        return secs % UnitOfTime.minute.secs;
+        return secs % minute.secs;
     }
 
     private static Integer getRemainingMins(int secs) {
-        return getUnitOfTime(secs, UnitOfTime.minute.secs) - (UnitOfTime.minute.secs * getUnitOfTime(secs, UnitOfTime.hour.secs));
+        return getUnitOfTime(secs, minute.secs) - (minute.secs * getUnitOfTime(secs, hour.secs));
     }
 
     private static Integer getRemainingHours(int secs) {
-        return getUnitOfTime(secs, UnitOfTime.hour.secs) - (24 * getUnitOfTime(secs, UnitOfTime.day.secs));
+        return getUnitOfTime(secs, hour.secs) - (24 * getUnitOfTime(secs, day.secs));
     }
 
     private static Integer getUnitOfTime(int secs, int units) {
