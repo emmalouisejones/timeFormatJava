@@ -25,6 +25,10 @@ public class TimeFormatter {
 
     private static String calculateTime(int secs) {
         Map<String, Integer> timeByUnit = calculateTimeByUnit(secs);
+        return getTimeText(timeByUnit);
+    }
+
+    private static String getTimeText(Map<String, Integer> timeByUnit) {
         StringBuffer timeText = new StringBuffer();
         int size = timeByUnit.size();
         AtomicInteger count = new AtomicInteger(1);
